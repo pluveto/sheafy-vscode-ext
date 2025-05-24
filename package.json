@@ -2,7 +2,7 @@
   "name": "sheafy-vscode-ext",
   "displayName": "Sheafy",
   "description": "Exports folder/project contents to a single text file or clipboard.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.100.0"
   },
@@ -13,6 +13,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/pluveto/sheafy-vscode-ext.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pluveto/sheafy-vscode-ext/issues"
   },
   "publisher": "Zijing Zhang <zijing.zhang@proton.me>",
   "activationEvents": [
