@@ -1,0 +1,115 @@
+{
+  "name": "sheafy-vscode-ext",
+  "displayName": "Sheafy",
+  "description": "Exports folder/project contents to a single text file or clipboard.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "publisher": "Zijing Zhang <zijing.zhang@proton.me>",
+  "activationEvents": [
+    "onCommand:sheafy.exportFolderToClipboard",
+    "onCommand:sheafy.exportProjectToTextFile",
+    "onCommand:sheafy.initializeSheafyConfig",
+    "workspaceContains:sheafy.toml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "sheafy.exportFolderToClipboard",
+        "title": "Sheafy: Export this folder to clipboard",
+        "category": "Sheafy"
+      },
+      {
+        "command": "sheafy.exportProjectToTextFile",
+        "title": "Sheafy: Export current project to text file",
+        "category": "Sheafy"
+      },
+      {
+        "command": "sheafy.initializeSheafyConfig",
+        "title": "Sheafy: Initialize sheafy.toml configuration",
+        "category": "Sheafy"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "sheafy.exportFolderToClipboard",
+          "group": "navigation@9"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Sheafy",
+      "properties": {
+        "sheafy.respectGitignore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Respect .gitignore rules found in the workspace root."
+        },
+        "sheafy.exportDestinations": {
+          "type": "array",
+          "default": [
+            "clipboard"
+          ],
+          "description": "Select where to export the content.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "clipboard",
+              "tempTab",
+              "rootDir",
+              "workingDir"
+            ],
+            "enumDescriptions": [
+              "Export to clipboard.",
+              "Export to a new temporary editor tab.",
+              "Export to a file in the project root directory.",
+              "Export to a file in the 'working_dir' specified in sheafy.toml (or root if not specified)."
+            ]
+          },
+          "uniqueItems": true
+        },
+        "sheafy.exportFormatTemplate": {
+          "type": "string",
+          "default": "### {relpath}\n\n```{lang}\n{content}\n````\n",
+          "description": "Template for formatting each file's content. Placeholders: {relpath}, {lang}, {content}."
+        },
+        "sheafy.folderExport.pathRelativeToClickedFolder": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, when using 'Export this folder...', the {relpath} placeholder will be relative to the clicked folder. If false (default), {relpath} will be relative to the workspace root."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "pnpm run compile && pnpm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "^9.25.1",
+    "typescript": "^5.8.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.5.2"
+  },
+  "dependencies": {
+    "glob": "^10.3.10",
+    "@iarna/toml": "^2.2.5",
+    "ignore": "^5.3.0"
+  }
+}
