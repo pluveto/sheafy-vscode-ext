@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/pluveto/sheafy-vscode-ext/issues"
   },
-  "publisher": "Zijing Zhang <zijing.zhang@proton.me>",
+  "publisher": "pluveto",
   "activationEvents": [
     "onCommand:sheafy.exportFolderToClipboard",
     "onCommand:sheafy.exportProjectToTextFile",
